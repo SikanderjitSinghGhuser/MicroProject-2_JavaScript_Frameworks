@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stanmore II - Marshall</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="productApp" class="container">
+        <header class="header">
+            <h1 class="brand-title">MARSHALL</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="stanmore.html" class="nav-link active">Stanmore II</a></li>
+                    <li><a href="acton.html" class="nav-link">Acton II</a></li>
+                    <li><a href="woburn.html" class="nav-link">Woburn II</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="main-content">
+            <img :src="images[selectedColor]" alt="Stanmore II" class="product-image-large">
+            <h1>Stanmore II</h1>
+            <p>Price: $349.99</p>
+            <select v-model="selectedColor">
+                <option v-for="color in colors" :value="color">{{ color }}</option>
+            </select>
+            <button @click="addToCart">Add to Cart</button>
+        </main>
+        <footer class="footer">
+            © 2024 Marshall Speakers. All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue@3.2.31"></script>
+    <script>
+        const { createApp } = Vue;
+        createApp({
+            data() {
+                return {
+                    selectedColor: 'Black',
+                    colors: ['Black', 'White', 'Brown'],
+                    images: {
+                        'White': 'img/stanmore/img1.avif',
+                        'Black': 'img/stanmore/img2.avif',
+                        'Brown': 'img/stanmore/img3.avif'
+                    }
+                }
+            },
+            methods: {
+                addToCart() {
+                    alert(`Added ${this.selectedColor} Stanmore II to cart!`);
+                }
+            }
+        }).mount('#productApp');
+    </script>
+</body>
+
+</html>

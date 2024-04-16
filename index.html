@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marshall Speakers</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app" class="container">
+        <header class="header">
+            <h1 class="brand-title">MARSHALL</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li><a href="stanmore.html" class="nav-link">Stanmore II</a></li>
+                    <li><a href="acton.html" class="nav-link">Acton II</a></li>
+                    <li><a href="woburn.html" class="nav-link">Woburn II</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="main-content">
+            <h1>Explore Our Products</h1>
+            <div class="products-list">
+                <div class="product" v-for="product in products" :key="product.id">
+                    <img :src="product.images[product.selectedColor]" :alt="product.name" class="product-image">
+                    <div class="product-info">
+                        <h2>{{ product.name }}</h2>
+                        <p>${{ product.price }}</p>
+                        <select v-model="product.selectedColor" @change="updateImage(product.id, $event)">
+                            <option v-for="color in product.colorOptions" :value="color">{{ color }}</option>
+                        </select>
+                        <a :href="product.url" class="product-link">View Product</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
+            © 2024 Marshall Speakers. All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue@3.2.31"></script>
+    <script>
+        const { createApp } = Vue;
+        createApp({
+            data() {
+                return {
+                    products: [
+                        {
+                            id: 1,
+                            name: "Stanmore II",
+                            price: 349.99,
+                            url: "stanmore.html",
+                            selectedColor: 'Black',
+                            colorOptions: ['Black', 'White', 'Brown'],
+                            images: {
+                                'White': 'img/stanmore/img1.avif',
+                                'Black': 'img/stanmore/img2.avif',
+                                'Brown': 'img/stanmore/img3.avif'
+                            }
+                        },
+                        {
+                            id: 2,
+                            name: "Acton II",
+                            price: 249.99,
+                            url: "acton.html",
+                            selectedColor: 'Black',
+                            colorOptions: ['Black', 'White', 'Brown'],
+                            images: {
+                                'White': 'img/acton/img1.avif',
+                                'Black': 'img/acton/img2.avif',
+                                'Brown': 'img/acton/img3.avif'
+                            }
+                        },
+                        {
+                            id: 3,
+                            name: "Woburn II",
+                            price: 549.99,
+                            url: "woburn.html",
+                            selectedColor: 'Black',
+                            colorOptions: ['Black', 'White'],
+                            images: {
+                                'Black': 'img/woburn/img1.avif',
+                                'White': 'img/woburn/img2.avif'
+                            }
+                        }
+                    ]
+                }
+            },
+            methods: {
+                updateImage(id, event) {
+                    event.preventDefault();  // Prevent the link navigation
+                    const product = this.products.find(p => p.id === id);
+                    product.selectedColor = product.selectedColor;  // Trigger reactivity
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>
